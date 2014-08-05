@@ -12,14 +12,15 @@ public class HttpURLConnectionCartoDB {
 
 	private final String USER_AGENT = "Mozilla/5.0";
 
-	private final String user = "rdorden"; /* User Login to CartoDB */
-	private final String api_key = "d96046a567aa45a4d2f9d26b5ed58399a5f41885"; /*API KEY of CartoDB */
+	private final String user = "User Login to CartoDB"; /* User Login to CartoDB */
+	private final String api_key = "/*API KEY of CartoDB */"; /*API KEY of CartoDB */
 
 	// HTTP GET request
 	public void CleanDb() throws Exception {
 
 		String request = "https://"
 				+ user
+				/* Delete query geographic location table. Cleared to insert it new hashtags filteres in TopologyRunner.java */
 				+ ".cartodb.com/api/v2/sql?q=DELETE%20FROM%20twitter_pfm&api_key="
 				+ api_key;
 
@@ -33,6 +34,8 @@ public class HttpURLConnectionCartoDB {
 
 		String request = "https://"
 				+ getUser()
+				/* Insertion querys. Include the name of the table and colums that should be changed as we established
+				in cartoDB */
 				+ ".cartodb.com/api/v2/sql?q=INSERT%20INTO%20twitter_pfm%20(cartodb_id,%20the_geom,%20hashtag)%20VALUES("
 				+ cartodb_Id + ",ST_SetSRID(ST_Point(" + longitude + ","
 				+ latitude + "),4326),'" + hashtag + "')&api_key="
